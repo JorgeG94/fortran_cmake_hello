@@ -5,5 +5,6 @@ program main
     call hello_from_first()
     call hello_from_second()
     call general_hello()
+    call print_hello()
 end program main
 

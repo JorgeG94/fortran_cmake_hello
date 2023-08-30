@@ -16,11 +16,13 @@ endif()
 
 set(project_name quetzal)
 set(main_library quetzal_lib)
-set(all_binaries ${project_name} ${main_library})
+set(f77_library quetzal_f77_lib)
+set(all_binaries ${project_name} ${main_library} ${f77_library})
 
 set(LIBRARY_TYPE STATIC)
 
 add_library(${main_library} ${LIBRARY_TYPE})
+add_library(${f77_library} ${LIBRARY_TYPE})
 
 target_include_directories(${main_library} PUBLIC 
 			   ${CMAKE_CURRENT_SOURCE_DIR}/source/sample
@@ -34,15 +36,20 @@ target_link_libraries(${main_library} PUBLIC OpenMP::OpenMP_Fortran)
 set_target_properties(${main_library} PROPERTIES 
 			Fortran_FORMAT FREE
 			)
+set_target_properties(${f77_library} PROPERTIES 
+			Fortran_FORMAT FREE
+			)
 set(FVERSION "-std=f95")
-set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${FVERSION}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS}")
+
+target_compile_options(${main_library} PRIVATE ${FVERSION})
 
 add_executable(${project_name} ${CMAKE_CURRENT_SOURCE_DIR}/source/main.f90)
 target_include_directories(${project_name} PUBLIC
 			   ${CMAKE_CURRENT_SOURCE_DIR}/source/sample
 			   ${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
 )
-target_link_libraries(${project_name} PRIVATE ${main_library})
+target_link_libraries(${project_name} PRIVATE ${main_library} ${f77_library})
 
 install(TARGETS ${project_name} DESTINATION ${PROJECT_SOURCE_DIR})
 
