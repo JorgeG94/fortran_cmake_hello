@@ -22,22 +22,22 @@ module InputFileGroups
     integer :: NDFUNC
   end type BasisGroup
 
+  type InputLinesType
+    character(256), pointer :: lines(:)
+  end type InputLinesType
+
 contains
 
 
+! Subroutine to read GAMESS input
 subroutine read_gamess_input(input_filename, input_lines, num_lines)
-  implicit none 
   character(*), intent(in) :: input_filename
-  !character(256), dimension(:), allocatable, intent(out) :: input_lines
-  character(256), intent(out) :: input_lines
-
+  type(InputLinesType), intent(out) :: input_lines
   integer, intent(out) :: num_lines
 
   integer :: unit
   integer :: i
   character(256) :: line
-
-  character(256), dimension(:), allocatable :: temp_lines
 
   ! Attempt to open the input file
   open(unit, file=input_filename, status='old', action='read', iostat=i)
@@ -54,26 +54,21 @@ subroutine read_gamess_input(input_filename, input_lines, num_lines)
     num_lines = num_lines + 1
   end do
 
-  ! Allocate memory for temp_lines array
-  allocate(temp_lines(num_lines))
+  ! Allocate memory for input lines
+  allocate(input_lines%lines(num_lines))
 
-  ! Rewind the file and read lines into the temp_lines array
+  ! Rewind the file and read lines into the array
   rewind(unit)
   do i = 1, num_lines
-    read(unit, '(A)') temp_lines(i)
+    read(unit, '(A)') input_lines%lines(i)
   end do
 
   ! Close the file
   close(unit)
 
-  ! Copy data from temp_lines to input_lines
-  !allocate(input_lines(num_lines))
-  input_lines = temp_lines
-
-  ! Deallocate temp_lines
-  deallocate(temp_lines)
-
 end subroutine read_gamess_input
+
+
   ! Add subroutines or functions for reading and manipulating the groups if needed
 
 end module InputFileGroups
