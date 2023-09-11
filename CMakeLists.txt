@@ -23,10 +23,12 @@ set(LIBRARY_TYPE STATIC)
 
 add_library(${main_library} ${LIBRARY_TYPE})
 add_library(${f77_library} ${LIBRARY_TYPE})
+#set(Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/modules)
 
 target_include_directories(${main_library} PUBLIC 
-			   ${CMAKE_CURRENT_SOURCE_DIR}/source/sample
-			   ${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
+#${Fortran_MODULE_DIRECTORY}
+			   #${CMAKE_CURRENT_SOURCE_DIR}/source/sample
+			   #${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
 )
 find_package(OpenMP REQUIRED)
 
@@ -46,8 +48,9 @@ target_compile_options(${main_library} PRIVATE ${FVERSION})
 
 add_executable(${project_name} ${CMAKE_CURRENT_SOURCE_DIR}/source/main.f90)
 target_include_directories(${project_name} PUBLIC
-			   ${CMAKE_CURRENT_SOURCE_DIR}/source/sample
-			   ${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
+#${Fortran_MODULE_DIRECTORY}
+#			   ${CMAKE_CURRENT_SOURCE_DIR}/source/sample
+#			   ${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
 )
 target_link_libraries(${project_name} PRIVATE ${main_library} ${f77_library})
 

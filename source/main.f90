@@ -33,7 +33,7 @@ program MainProgram
 
   call read_system_group(input_lines, system_data)
 
-  print *, 'MWORDS:', system_data%MWORDS
+  write(*,*) 'MWORDS:', system_data%MWORDS
   print *, 'MEMDDI:', system_data%MEMDDI
 
 
