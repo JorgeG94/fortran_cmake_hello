@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.23)
 
 project(my_project VERSION 0.0
         DESCRIPTION "My Fortran program"
-        LANGUAGES Fortran)
+        LANGUAGES Fortran C CXX)
 
 enable_language(Fortran)
+enable_language(C)
+enable_language(CXX)
 
 
 set(default_build_type "Release")
@@ -31,8 +33,9 @@ target_include_directories(${main_library} PUBLIC
 			   #${CMAKE_CURRENT_SOURCE_DIR}/source/utilities
 )
 find_package(OpenMP REQUIRED)
+find_package(HDF5 REQUIRED)
 
-target_link_libraries(${main_library} PUBLIC OpenMP::OpenMP_Fortran)
+target_link_libraries(${main_library} PUBLIC OpenMP::OpenMP_Fortran hdf5::hdf5_fortran)
 
 
 set_target_properties(${main_library} PROPERTIES 
@@ -41,7 +44,7 @@ set_target_properties(${main_library} PROPERTIES
 set_target_properties(${f77_library} PROPERTIES 
 			Fortran_FORMAT FREE
 			)
-set(FVERSION "-std=f95")
+#set(FVERSION "-std=f95")
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS}")
 
 target_compile_options(${main_library} PRIVATE ${FVERSION})
