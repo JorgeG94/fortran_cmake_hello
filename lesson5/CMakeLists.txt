@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.22)
 # Set the project name and specify that it is a Fortran project
 project(MyFortranProject LANGUAGES Fortran)
 
+set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/modules)
+
 # Create a library from the module.f90 file
 add_library(mod_hello STATIC source/module.f90)
 
