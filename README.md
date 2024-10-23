@@ -7,8 +7,4 @@ Lessons on using cmake for fortran
 - Lesson 4: Adding more files, targets, and dependencies 
 - Lesson 5: Compile flags, per target
 - Lesson 6: Adding dependencies: `find_package` usage
-- Lesson 7: More complex project structures - TODO
-- Lesson 8: Creating custom functions  - TODO
-- Lesson 9: Adding external dependencies via fetch commands - TODO
-- Lesson 10: Customized builds, passing command line arguments into the build - TODO
-
+- Lesson 7: More complex project structures 
