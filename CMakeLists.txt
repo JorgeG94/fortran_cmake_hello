@@ -26,7 +26,7 @@ target_compile_options(main_executable PRIVATE -O3)
 # Make sure the main executable can find the modules in the specified directory
 target_include_directories(main_executable PRIVATE ${CMAKE_Fortran_MODULE_DIRECTORY})
 
-# Link the MPI, OpenMP, BLAS, and LAPACK libraries to the final executable
+# Link 
 target_link_libraries(main_executable PRIVATE f90_lib f77_lib)
 
 add_subdirectory(source)
