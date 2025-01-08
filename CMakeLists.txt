@@ -1,3 +1,4 @@
+# set the minimum version 
 cmake_minimum_required(VERSION 3.22)
 
 # Set the project name and specify that it is a Fortran project
